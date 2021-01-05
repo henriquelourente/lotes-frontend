@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <br>
+            <div class="myform form ">
+                <div class="logo mb-3">
+                    <div class="col-md-12 text-center">
+                        <h1>Login</h1>
+                    </div>
+                </div>
+                <form class="form" (ngSubmit)="login() " [formGroup]="loginForm ">
+                    <div class="form-group">
+                        <label class="form-label">Usuário</label>
+                        <input formControlName="user" id="user" type="text" class="form-control" placeholder="Informe o usuário">
+                        <span *ngIf=" loginForm.controls.user.dirty && loginForm.controls.user.invalid " class="text-danger ">
+                            <p>O campo usuário é obrigatório</p>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Usuário</label>
+                        <input formControlName="password" id="password" type="password" class="form-control" placeholder="Informe a senha">
+                        <span *ngIf=" loginForm.controls.password.dirty && loginForm.controls.passwordinvalid " class="text-danger ">
+                            <p>O campo senha é obrigatório</p>
+                        </span>
+                    </div>
+
+                    <div class="col-md-12 text-center ">
+                        <button type="submit " class=" btn btn-block mybtn btn-primary tx-tfm ">Login</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="container-fluid " style="height: 500px; ">
+    <div class="row h-100 ">
+        <div class="col-md-7 " [style.background-image]=" 'url(/assets/fundo-zoom.png)' ">
+        </div>
+        <div class="col-md-3 ">
+            <form class="form " (ngSubmit)="login() " [formGroup]="loginForm ">
+                <div class="mb-3 ">
+                    <label class="form-label ">Usuário</label>
+                    <input formControlName="user " id="user " type="text " class="form-control ">
+                    <span *ngIf="loginForm.controls.user.dirty && loginForm.controls.user.invalid " class="text-danger ">
+                        <p>O campo usuário é obrigatório</p>
+                    </span>
+                </div>
+                <div class="mb-3 ">
+                    <label class="form-label ">Senha</label>
+                    <input formControlName="password " id="password " type="password " class="form-control ">
+                    <span *ngIf="loginForm.controls.password.dirty && loginForm.controls.password.invalid " class="text-danger ">
+                        <p>O campo senha é obrigatório</p>
+                    </span>
+                </div>
+                <button id="login " type="submit " class="btn btn-primary ">Login</button>
+            </form>
+        </div>
+    </div>
+</div>  -->
