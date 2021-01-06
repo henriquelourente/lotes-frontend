@@ -1,4 +1,4 @@
-.myform {
+/* .myform {
     position: relative;
     display: -ms-flexbox;
     display: flex;
@@ -17,5 +17,24 @@
 
 .center_div {
     margin: 0 auto;
-    width: 80%/* value of your choice which suits your alignment */
+    width: 80%
+} */
+
+.login-form {
+    padding: 24px;
+    background: #fbfbfb;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+}
+
+.login-form-margin {
+    margin-bottom: 16px;
+}
+
+.login-form-forgot {
+    float: right;
+}
+
+.login-form-button {
+    width: 100%;
 }
