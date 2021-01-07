@@ -45,8 +45,6 @@ export class LoginComponent implements OnInit {
           this.localStorageService.salvarDadosLocaisUsuario(response.content, this.usuario);
           this.router.navigate(['/lotes']);
         }
-
-        console.log(response)
       },
       error => { console.log(error) }
     );
