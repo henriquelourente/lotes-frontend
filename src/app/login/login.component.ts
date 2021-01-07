@@ -7,13 +7,14 @@ import { Usuario } from '../models/usuario';
 import { LoginService } from '../services/login.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   usuario: Usuario;
@@ -22,16 +23,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
   constructor(private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService,
+    private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       user: this.formBuilder.control('', Validators.required),
       password: this.formBuilder.control('', Validators.required)
     });
-  }
-
-  ngAfterViewInit(): void {
   }
 
   login(): void {
@@ -43,6 +42,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.exibirMensagensErro(response.messages);
         }
         else {
+          this.localStorageService.salvarDadosLocaisUsuario(response.content, this.usuario);
           this.router.navigate(['/lotes']);
         }
 
@@ -57,5 +57,4 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.toastrService.error(mensagem.content, 'Erro :-(')
     });
   }
-
 }

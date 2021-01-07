@@ -1,18 +1,16 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AppGuard } from "./app.guard";
 import { LoginComponent } from "./login/login.component";
 import { LotesListaComponent } from "./lotes-lista/lotes-lista.component";
-import { HomeComponent } from "./navegacao/home/home.component";
 import { NotFoundComponent } from "./navegacao/not-found/not-found.component";
 
 const routes: Routes = [
-    { path: '', component: HomeComponent, pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    { path: '', component: LotesListaComponent, pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'lotes', component: LotesListaComponent },
+    { path: 'lotes', component: LotesListaComponent, canActivate: [AppGuard] },
     { path: '**', component: NotFoundComponent }
 ];
-
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, { useHash: false })],
