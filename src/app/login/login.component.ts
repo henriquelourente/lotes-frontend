@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { ResultMessage } from '../models/result/result';
+import { ResultMessage } from '../models/result/result-message';
 import { Usuario } from '../models/usuario';
 import { LoginService } from '../services/login.service';
 
@@ -17,7 +17,6 @@ import { LocalStorageService } from '../services/local-storage.service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  usuario: Usuario;
   mensagens: Array<ResultMessage>;
 
   constructor(private formBuilder: FormBuilder,
@@ -34,15 +33,16 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.usuario = Object.assign({}, this.usuario, this.loginForm.value);
-    this.loginService.login(this.usuario).subscribe(
+    const usuario = { ...this.loginForm.value };
+    
+    this.loginService.login(usuario).subscribe(
       response => {
         if (response.messages?.length) {
           this.mensagens = response.messages;
           this.exibirMensagensErro(response.messages);
         }
         else {
-          this.localStorageService.salvarDadosLocaisUsuario(response.content, this.usuario);
+          this.localStorageService.salvarDadosLocaisUsuario(response.content, usuario);
           this.router.navigate(['/lotes']);
         }
       },

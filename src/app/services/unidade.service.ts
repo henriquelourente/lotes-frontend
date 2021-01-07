@@ -1,21 +1,22 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
-import { Usuario } from "../models/usuario";
 import { Observable } from "rxjs";
-import { map, catchError } from 'rxjs/operators'
+import { catchError, map } from "rxjs/operators";
+import { Result } from "../models/result/result";
+import { Unidade } from "../models/unidade";
 import { BaseService } from "./base.service";
 import { LocalStorageService } from "./local-storage.service";
 
 @Injectable()
-export class LoginService extends BaseService {
-    
+export class UnidadeService extends BaseService {
+
     constructor(localStorageService: LocalStorageService, private httpClient: HttpClient) {
         super(localStorageService);
     }
 
-    login(usuario: Usuario): Observable<any> {
+    public obterUnidades(): Observable<Result<Unidade[]>> {
         const response = this.httpClient
-            .post('http://localhost:8081/api/login', usuario, this.obterHeaderJson())
+            .get<Result<Unidade[]>>(`${this.baseUrl}/unidade/buscar-todas-unidades`, this.obterHeaderAutenticadoJson())
             .pipe(
                 map(response => response),
                 catchError(this.serviceError));

@@ -8,7 +8,7 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
 import { AppComponent } from './app.component';
-import { MenuComponent } from './navegacao/menu/menu.component';
+import { HeaderComponent } from './navegacao/header/header.component';
 import { FooterComponent } from './navegacao/footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,12 +25,16 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { UnidadeService } from './services/unidade.service';
 
 registerLocaleData(en);
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
+    HeaderComponent,
     FooterComponent,
     LoginComponent,
     LotesListaComponent,
@@ -48,12 +52,16 @@ registerLocaleData(en);
     NzInputModule,
     NzButtonModule,
     NzGridModule,
+    NzLayoutModule,
+    NzPageHeaderModule,
+    NzSelectModule,
     ToastrModule.forRoot(),
   ],
   providers: [
     LoginService,
     { provide: NZ_I18N, useValue: en_US },
     LocalStorageService,
+    UnidadeService,
     AppGuard
   ],
   bootstrap: [AppComponent]

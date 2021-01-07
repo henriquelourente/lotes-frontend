@@ -1,4 +1,8 @@
-export class ResultMessage {
-    detail: string;
-    content: string;
+import { ResultMessage } from "./result-message";
+
+export class Result<T> {
+    content: T;
+    messages: ResultMessage[];
+    statusCode: number;
+    success: boolean;
 }
