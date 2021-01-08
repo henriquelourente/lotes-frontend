@@ -1,17 +1,14 @@
-nz-breadcrumb {
-    margin: 16px 0;
+nz-select {
+    min-width: 200px;
+    padding-left: 8px;
 }
 
-nz-content {
-    padding: 0 50px;
+nz-date-picker {
+    margin-left: 8px;
 }
 
-nz-footer {
+.filtros-lotes {
     text-align: center;
-}
-
-.inner-content {
-    background: #fff;
-    padding: 24px;
-    min-height: 280px;
+    height: 50px;
+    padding: 8px;
 }

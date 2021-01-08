@@ -29,6 +29,11 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { UnidadeService } from './services/unidade.service';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { AreaService } from './services/area.service';
+import { LinhaAreaService } from './services/linha-area.service';
+import { ProcessoService } from './services/processo.service';
+import { LoteService } from './services/lote.service';
 
 registerLocaleData(en);
 @NgModule({
@@ -55,6 +60,7 @@ registerLocaleData(en);
     NzLayoutModule,
     NzPageHeaderModule,
     NzSelectModule,
+    NzDatePickerModule,
     ToastrModule.forRoot(),
   ],
   providers: [
@@ -62,6 +68,10 @@ registerLocaleData(en);
     { provide: NZ_I18N, useValue: en_US },
     LocalStorageService,
     UnidadeService,
+    AreaService,
+    LinhaAreaService,
+    ProcessoService,
+    LoteService,
     AppGuard
   ],
   bootstrap: [AppComponent]

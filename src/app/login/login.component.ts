@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { ResultMessage } from '../models/result/result-message';
-import { Usuario } from '../models/usuario';
 import { LoginService } from '../services/login.service';
 
 import { ToastrService } from 'ngx-toastr';
