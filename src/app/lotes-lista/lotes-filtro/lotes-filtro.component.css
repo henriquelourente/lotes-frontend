@@ -1,0 +1,15 @@
+.filtros-lotes {
+    text-align: center;
+    height: 50px;
+    padding: 8px;
+    background-color: lightgrey;
+}
+
+nz-select {
+    min-width: 200px;
+    padding-left: 8px;
+}
+
+nz-date-picker {
+    margin-left: 8px;
+}

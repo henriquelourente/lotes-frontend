@@ -1,14 +1,12 @@
-nz-select {
-    min-width: 200px;
-    padding-left: 8px;
+nz-layout {
+    height: 100%;
 }
 
-nz-date-picker {
-    margin-left: 8px;
+nz-table {
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
-.filtros-lotes {
-    text-align: center;
-    height: 50px;
-    padding: 8px;
+button {
+    margin-left: 5px;
 }

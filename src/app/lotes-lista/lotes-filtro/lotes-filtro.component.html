@@ -1,0 +1,24 @@
+<div class="filtros-lotes">
+    <form nz-form [formGroup]="filtroLotesForm" (ngSubmit)="filtrarLotes()">
+        <nz-select formControlName="areaId" (ngModelChange)="areaChange($event)">
+            <nz-option *ngFor="let area of areas" [nzValue]="area.id" [nzLabel]="area.codigo + ' - ' + area.descricao">
+            </nz-option>
+        </nz-select>
+
+        <nz-select formControlName="linhaId" (ngModelChange)="linhaChange($event)">
+            <nz-option *ngFor="let linha of linhas" [nzValue]="linha.id" [nzLabel]="linha.codigo + ' - ' + linha.descricao">
+            </nz-option>
+        </nz-select>
+
+        <nz-select formControlName="processoId" (ngModelChange)="filtrarLotes()">
+            <nz-option *ngFor="let processo of processos" [nzValue]="processo.id" [nzLabel]="processo.codigo + ' - ' + processo.descricao">
+            </nz-option>
+        </nz-select>
+
+        <nz-date-picker [nzFormat]="'dd/MM/yyyy'" formControlName="dataInicial" (ngModelChange)="filtrarLotes()">
+        </nz-date-picker>
+
+        <nz-date-picker [nzFormat]="'dd/MM/yyyy'" formControlName="dataFinal" (ngModelChange)="filtrarLotes()">
+        </nz-date-picker>
+    </form>
+</div>

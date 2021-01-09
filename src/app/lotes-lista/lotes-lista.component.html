@@ -1,28 +1,33 @@
 <nz-layout>
     <app-header [unidadeId]="unidadeId" (unidadeIdEmitter)="headerUnidadeEvent($event)"></app-header>
 
-    <div class="filtros-lotes">
-        <form nz-form [formGroup]="filtroLotesForm" class="login-form" (ngSubmit)="filtrarLotes()">
-            <nz-select formControlName="areaId" (ngModelChange)="areaChange($event)">
-                <nz-option *ngFor="let area of areas" [nzValue]="area.id" [nzLabel]="area.codigo + ' - ' + area.descricao">
-                </nz-option>
-            </nz-select>
-
-            <nz-select formControlName="linhaId" (ngModelChange)="linhaChange($event)">
-                <nz-option *ngFor="let linha of linhas" [nzValue]="linha.id" [nzLabel]="linha.codigo + ' - ' + linha.descricao">
-                </nz-option>
-            </nz-select>
-
-            <nz-select formControlName="processoId" (ngModelChange)="filtrarLotes()">
-                <nz-option *ngFor="let processo of processos" [nzValue]="processo.id" [nzLabel]="processo.codigo + ' - ' + processo.descricao">
-                </nz-option>
-            </nz-select>
-
-            <nz-date-picker [nzFormat]="'dd/MM/yyyy'" formControlName="dataInicial" (ngModelChange)="filtrarLotes()">
-            </nz-date-picker>
-
-            <nz-date-picker [nzFormat]="'dd/MM/yyyy'" formControlName="dataFinal" (ngModelChange)="filtrarLotes()">
-            </nz-date-picker>
-        </form>
-    </div>
+    <app-lotes-filtro #lotesFiltro [unidadeId]="unidadeId" (loteFilterEmitter)="loteFilterEvent($event)"></app-lotes-filtro>
+    
+	<nz-content>
+        <nz-table #basicTable [(nzData)]="lotes" (nzQueryParams)="onQueryParamsChange($event)" [nzFrontPagination]="false" [nzTotal]="lotesCount" [nzPageSize]="lotesPageSize" [nzPageIndex]="lotesPageIndex">
+            <thead>
+                <tr>
+                    <th>Lote</th>
+                    <th>Resultante</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                    <th>Situação</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lote of basicTable.data">
+                    <td>{{lote.ano}}-{{lote.numero}}</td>
+                    <td>{{lote.resultante?.descricao}}</td>
+                    <td>{{lote.dataInicio | date:'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{lote.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{lote.situacao}}</td>
+                    <td>
+                        <button nz-button nzType="primary">editar</button>
+                        <button nz-button nzDanger>excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </nz-content>
 </nz-layout>

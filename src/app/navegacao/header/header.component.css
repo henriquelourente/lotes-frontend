@@ -1,5 +1,10 @@
 nz-page-header {
-    background-color: #ffd740;
+    background-color: #303F9F;
+}
+
+nz-page-header-title,
+nz-page-header-subtitle {
+    color: #FFFFFF;
 }
 
 nz-select {

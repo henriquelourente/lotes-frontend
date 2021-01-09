@@ -16,7 +16,12 @@ import { LotesListaComponent } from './lotes-lista/lotes-lista.component';
 import { NotFoundComponent } from './navegacao/not-found/not-found.component';
 import { LoginService } from './services/login.service';
 import { AppGuard } from './app.guard';
+import { LoteService } from './services/lote.service';
 import { LocalStorageService } from './services/local-storage.service';
+import { AreaService } from './services/area.service';
+import { LinhaAreaService } from './services/linha-area.service';
+import { ProcessoService } from './services/processo.service';
+import { UnidadeService } from './services/unidade.service';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -28,14 +33,13 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { UnidadeService } from './services/unidade.service';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { AreaService } from './services/area.service';
-import { LinhaAreaService } from './services/linha-area.service';
-import { ProcessoService } from './services/processo.service';
-import { LoteService } from './services/lote.service';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { LotesFiltroComponent } from './lotes-lista/lotes-filtro/lotes-filtro.component';
 
 registerLocaleData(en);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +47,8 @@ registerLocaleData(en);
     FooterComponent,
     LoginComponent,
     LotesListaComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LotesFiltroComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,8 @@ registerLocaleData(en);
     NzPageHeaderModule,
     NzSelectModule,
     NzDatePickerModule,
+    NzTableModule,
+    NzIconModule,
     ToastrModule.forRoot(),
   ],
   providers: [

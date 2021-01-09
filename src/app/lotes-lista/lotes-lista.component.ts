@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Area } from '../models/area';
+import { LoteFilter } from '../models/filter/lote-filter';
 import { Linha } from '../models/linha';
 import { Lote } from '../models/lote';
 import { Processo } from '../models/processo';
-import { AreaService } from '../services/area.service';
-import { LinhaAreaService } from '../services/linha-area.service';
 import { LoteService } from '../services/lote.service';
-import { ProcessoService } from '../services/processo.service';
 import { UnidadeService } from '../services/unidade.service';
 
 @Component({
@@ -25,12 +24,15 @@ export class LotesListaComponent implements OnInit {
   linhas: Linha[];
   processos: Processo[];
   lotes: Lote[]
+  lotesPageIndex: number = 1;
+  lotesPageSize: number = 21;
+  lotesCount: number = 0;
+  lotesLoading: boolean = false;
+
+  loteFilter: LoteFilter;
 
   constructor(
     private unidadeService: UnidadeService,
-    private areaService: AreaService,
-    private linhaAreaService: LinhaAreaService,
-    private processoService: ProcessoService,
     private loteService: LoteService,
     private formBuilder: FormBuilder) { }
 
@@ -51,50 +53,18 @@ export class LotesListaComponent implements OnInit {
     this.unidadeId = unidadeId;
   }
 
+  loteFilterEvent(loteFilter: LoteFilter): void {
+    debugger;
+    this.loteFilter = loteFilter;
+    this.filtrarLotes();
+  }
+
   private carregarUnidadePadrao(): void {
     this.unidadeService.obterUnidades()
       .subscribe(
         response => {
           this.unidadeId = response.content[0].id;
           this.filtroLotesForm.controls.unidadeId.setValue(this.unidadeId);
-          this.carregarAreas(this.unidadeId);
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
-  private carregarAreas(unidadeId: string): void {
-    this.areaService.obterAreasPorUnidade(unidadeId)
-      .subscribe(
-        response => {
-          this.areas = response.content;
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
-  areaChange(areaId: string): void {
-    this.filtroLotesForm.controls.linhaId.setValue(null);
-
-    this.linhaAreaService.obterLinhasPorArea(areaId)
-      .subscribe(
-        response => {
-          this.linhas = response.content;
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
-  linhaChange(linhaId: string): void {
-    this.filtroLotesForm.controls.processoId.setValue(null);
-
-    this.processoService.obterProcessosPorLinhaAreaUnidade(this.unidadeId, this.filtroLotesForm.controls.areaId.value, linhaId)
-      .subscribe(
-        response => {
-          this.processos = response.content;
         },
         error => {
           console.log(error);
@@ -102,34 +72,23 @@ export class LotesListaComponent implements OnInit {
   }
 
   filtrarLotes() {
-    if (!this.podePesquisar()) {
-      return;
-    }
+    this.lotesLoading = true;
 
-    this.loteService.obterLotes(
-      this.filtroLotesForm.controls.unidadeId.value,
-      this.filtroLotesForm.controls.areaId.value,
-      this.filtroLotesForm.controls.linhaId.value,
-      this.filtroLotesForm.controls.processoId.value,
-      this.filtroLotesForm.controls.dataInicial.value,
-      this.filtroLotesForm.controls.dataFinal.value,
-      1)
+    this.loteService.obterLotes(this.loteFilter, this.lotesPageIndex)
       .subscribe(
         response => {
-          this.lotes = response.data;
-          console.log(response);
+          this.lotes = response.content.data;
+          this.lotesCount = response.content.total;
+          this.lotesLoading = false;
         },
         error => {
+          this.lotesLoading = false;
           console.log(error);
         });
   }
 
-  private podePesquisar(): boolean {
-    return this.unidadeId
-      && this.filtroLotesForm.controls.areaId.value
-      && this.filtroLotesForm.controls.linhaId.value
-      && this.filtroLotesForm.controls.processoId.value
-      && this.filtroLotesForm.controls.dataInicial.value
-      && this.filtroLotesForm.controls.dataFinal.value;
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    this.lotesPageIndex = params.pageIndex;
+    this.filtrarLotes();
   }
 }
