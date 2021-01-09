@@ -16,8 +16,6 @@ import { UnidadeService } from '../services/unidade.service';
 })
 export class LotesListaComponent implements OnInit {
 
-  filtroLotesForm: FormGroup;
-
   unidadeId: string;
 
   areas: Area[];
@@ -33,19 +31,9 @@ export class LotesListaComponent implements OnInit {
 
   constructor(
     private unidadeService: UnidadeService,
-    private loteService: LoteService,
-    private formBuilder: FormBuilder) { }
+    private loteService: LoteService) { }
 
   ngOnInit(): void {
-    this.filtroLotesForm = new FormGroup({
-      unidadeId: this.formBuilder.control('', Validators.required),
-      areaId: this.formBuilder.control('', Validators.required),
-      linhaId: this.formBuilder.control('', Validators.required),
-      processoId: this.formBuilder.control('', Validators.required),
-      dataInicial: this.formBuilder.control(Date.now(), Validators.required),
-      dataFinal: this.formBuilder.control(Date.now(), Validators.required),
-    });
-
     this.carregarUnidadePadrao();
   }
 
@@ -54,7 +42,6 @@ export class LotesListaComponent implements OnInit {
   }
 
   loteFilterEvent(loteFilter: LoteFilter): void {
-    debugger;
     this.loteFilter = loteFilter;
     this.filtrarLotes();
   }
@@ -64,7 +51,6 @@ export class LotesListaComponent implements OnInit {
       .subscribe(
         response => {
           this.unidadeId = response.content[0].id;
-          this.filtroLotesForm.controls.unidadeId.setValue(this.unidadeId);
         },
         error => {
           console.log(error);
@@ -72,6 +58,10 @@ export class LotesListaComponent implements OnInit {
   }
 
   filtrarLotes() {
+    if (!this.validarFiltros()) {
+      return;
+    }
+
     this.lotesLoading = true;
 
     this.loteService.obterLotes(this.loteFilter, this.lotesPageIndex)
@@ -90,5 +80,14 @@ export class LotesListaComponent implements OnInit {
   onQueryParamsChange(params: NzTableQueryParams): void {
     this.lotesPageIndex = params.pageIndex;
     this.filtrarLotes();
+  }
+
+  private validarFiltros(): boolean {
+    return this.unidadeId != null
+      && this.loteFilter.areaId != null
+      && this.loteFilter.linhaId != null
+      && this.loteFilter.processoId != null
+      && this.loteFilter.dataInicial != null
+      && this.loteFilter.dataFinal != null;
   }
 }

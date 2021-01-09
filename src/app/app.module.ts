@@ -22,6 +22,7 @@ import { AreaService } from './services/area.service';
 import { LinhaAreaService } from './services/linha-area.service';
 import { ProcessoService } from './services/processo.service';
 import { UnidadeService } from './services/unidade.service';
+import { SituacaoLotePipe } from './pipes/situacao-lote.pipe';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -48,7 +49,8 @@ registerLocaleData(en);
     LoginComponent,
     LotesListaComponent,
     NotFoundComponent,
-    LotesFiltroComponent
+    LotesFiltroComponent,
+    SituacaoLotePipe
   ],
   imports: [
     BrowserModule,

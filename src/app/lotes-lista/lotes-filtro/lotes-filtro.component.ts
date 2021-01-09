@@ -97,10 +97,6 @@ export class LotesFiltroComponent implements OnInit {
   }
 
   filtrarLotes() {
-    if (!this.validarFiltros()) {
-      return;
-    }
-
     const loteFilter: LoteFilter = {
       unidadeId: this.unidadeId,
       areaId: this.filtroLotesForm.controls.areaId.value,
@@ -111,14 +107,5 @@ export class LotesFiltroComponent implements OnInit {
     };
 
     this.loteFilterEmitter.emit(loteFilter);
-  }
-
-  private validarFiltros(): boolean {
-    return this.unidadeId
-      && this.filtroLotesForm.controls.areaId.value
-      && this.filtroLotesForm.controls.linhaId.value
-      && this.filtroLotesForm.controls.processoId.value
-      && this.filtroLotesForm.controls.dataInicial.value
-      && this.filtroLotesForm.controls.dataFinal.value;
   }
 }

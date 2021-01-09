@@ -1,9 +1,10 @@
 <nz-layout>
     <app-header [unidadeId]="unidadeId" (unidadeIdEmitter)="headerUnidadeEvent($event)"></app-header>
 
-    <app-lotes-filtro #lotesFiltro [unidadeId]="unidadeId" (loteFilterEmitter)="loteFilterEvent($event)"></app-lotes-filtro>
-    
-	<nz-content>
+    <app-lotes-filtro #lotesFiltro [unidadeId]="unidadeId" (loteFilterEmitter)="loteFilterEvent($event)">
+    </app-lotes-filtro>
+
+    <nz-content>
         <nz-table #basicTable [(nzData)]="lotes" (nzQueryParams)="onQueryParamsChange($event)" [nzFrontPagination]="false" [nzTotal]="lotesCount" [nzPageSize]="lotesPageSize" [nzPageIndex]="lotesPageIndex">
             <thead>
                 <tr>
@@ -21,7 +22,7 @@
                     <td>{{lote.resultante?.descricao}}</td>
                     <td>{{lote.dataInicio | date:'dd/MM/yyyy HH:mm'}}</td>
                     <td>{{lote.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
-                    <td>{{lote.situacao}}</td>
+                    <td>{{lote.situacao | situacaoLote}}</td>
                     <td>
                         <button nz-button nzType="primary">editar</button>
                         <button nz-button nzDanger>excluir</button>
