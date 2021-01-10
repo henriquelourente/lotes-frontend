@@ -12,7 +12,7 @@ import { HeaderComponent } from './navegacao/header/header.component';
 import { FooterComponent } from './navegacao/footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LotesListaComponent } from './lotes-lista/lotes-lista.component';
+import { LotesComponent } from './lotes/lotes.component';
 import { NotFoundComponent } from './navegacao/not-found/not-found.component';
 import { LoginService } from './services/login.service';
 import { AppGuard } from './app.guard';
@@ -37,7 +37,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { LotesFiltroComponent } from './lotes-lista/lotes-filtro/lotes-filtro.component';
+import { LotesFiltroComponent } from './lotes/lotes-filtro/lotes-filtro.component';
+import { LotesListaComponent } from './lotes/lotes-lista/lotes-lista.component';
 
 registerLocaleData(en);
 
@@ -47,10 +48,11 @@ registerLocaleData(en);
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    LotesListaComponent,
+    LotesComponent,
     NotFoundComponent,
     LotesFiltroComponent,
-    SituacaoLotePipe
+    SituacaoLotePipe,
+    LotesListaComponent
   ],
   imports: [
     BrowserModule,

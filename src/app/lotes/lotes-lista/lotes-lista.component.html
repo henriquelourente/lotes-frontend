@@ -1,0 +1,27 @@
+<nz-content>
+    <nz-table #basicTable [(nzData)]="lotes" (nzQueryParams)="onQueryParamsChange($event)" [nzFrontPagination]="false" [nzTotal]="lotesCount" [nzPageSize]="lotesPageSize">
+        <thead>
+            <tr>
+                <th>Lote</th>
+                <th>Resultante</th>
+                <th>Início</th>
+                <th>Fim</th>
+                <th>Situação</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let lote of basicTable.data">
+                <td>{{lote.ano}}-{{lote.numero}}</td>
+                <td>{{lote.resultante?.descricao}}</td>
+                <td>{{lote.dataInicio | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{lote.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{lote.situacao | situacaoLote}}</td>
+                <td>
+                    <button nz-button nzType="primary" title="Reavaliar">R</button>
+                    <button nz-button nzDanger title="Excluir">E</button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-content>

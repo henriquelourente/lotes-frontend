@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Area } from '../models/area';
 import { LoteFilter } from '../models/filter/lote-filter';
 import { Linha } from '../models/linha';
@@ -10,11 +8,11 @@ import { LoteService } from '../services/lote.service';
 import { UnidadeService } from '../services/unidade.service';
 
 @Component({
-  selector: 'app-lotes-lista',
-  templateUrl: './lotes-lista.component.html',
-  styleUrls: ['./lotes-lista.component.css']
+  selector: 'app-lotes',
+  templateUrl: './lotes.component.html',
+  styleUrls: ['./lotes.component.css']
 })
-export class LotesListaComponent implements OnInit {
+export class LotesComponent implements OnInit {
 
   unidadeId: string;
 
@@ -23,11 +21,10 @@ export class LotesListaComponent implements OnInit {
   processos: Processo[];
   lotes: Lote[]
   lotesPageIndex: number = 1;
-  lotesPageSize: number = 21;
   lotesCount: number = 0;
   lotesLoading: boolean = false;
 
-  loteFilter: LoteFilter;
+  loteFilter: LoteFilter = null;
 
   constructor(
     private unidadeService: UnidadeService,
@@ -77,8 +74,8 @@ export class LotesListaComponent implements OnInit {
         });
   }
 
-  onQueryParamsChange(params: NzTableQueryParams): void {
-    this.lotesPageIndex = params.pageIndex;
+  onQueryParamsChange(pageIndex: number): void {
+    this.lotesPageIndex = pageIndex;
     this.filtrarLotes();
   }
 
