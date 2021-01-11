@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { LoteSituacao } from '../enums/lote-situacao';
 import { Area } from '../models/area';
 import { LoteFilter } from '../models/filter/lote-filter';
 import { Linha } from '../models/linha';
-import { Lote } from '../models/lote';
+import { Lote } from '../models/lotes/lote';
+import { ReavaliarLote } from '../models/lotes/reavaliar-lote';
 import { Processo } from '../models/processo';
 import { LoteService } from '../services/lote.service';
 import { UnidadeService } from '../services/unidade.service';
@@ -38,9 +40,9 @@ export class LotesComponent implements OnInit {
     this.unidadeId = unidadeId;
   }
 
-  loteFilterEvent(loteFilter: LoteFilter): void {
+  filtrarLotes(loteFilter: LoteFilter): void {
     this.loteFilter = loteFilter;
-    this.filtrarLotes();
+    this.obterLotesPorFiltro();
   }
 
   private carregarUnidadePadrao(): void {
@@ -54,7 +56,7 @@ export class LotesComponent implements OnInit {
         });
   }
 
-  filtrarLotes() {
+  private obterLotesPorFiltro(): void {
     if (!this.validarFiltros()) {
       return;
     }
@@ -76,7 +78,7 @@ export class LotesComponent implements OnInit {
 
   onQueryParamsChange(pageIndex: number): void {
     this.lotesPageIndex = pageIndex;
-    this.filtrarLotes();
+    this.obterLotesPorFiltro();
   }
 
   private validarFiltros(): boolean {
@@ -86,5 +88,14 @@ export class LotesComponent implements OnInit {
       && this.loteFilter.processoId != null
       && this.loteFilter.dataInicial != null
       && this.loteFilter.dataFinal != null;
+  }
+
+  reavaliar(event: ReavaliarLote): void {
+    this.loteService.reavaliar(event)
+      .subscribe(
+        _success => {
+          this.lotes.filter(lote => lote.id == event.id)[0].situacao = LoteSituacao.Reavaliando;
+        },
+        error => console.log(error));
   }
 }

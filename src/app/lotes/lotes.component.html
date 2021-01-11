@@ -1,9 +1,9 @@
 <nz-layout>
     <app-header [unidadeId]="unidadeId" (unidadeIdEmitter)="headerUnidadeEvent($event)"></app-header>
 
-    <app-lotes-filtro #lotesFiltro [unidadeId]="unidadeId" (loteFilterEmitter)="loteFilterEvent($event)">
+    <app-lotes-filtro #lotesFiltro [unidadeId]="unidadeId" (filtrarLotesEmitter)="filtrarLotes($event)">
     </app-lotes-filtro>
 
-    <app-lotes-lista [lotes]="lotes" [lotesCount]="lotesCount" (tableIndexChangeEmitter)="onQueryParamsChange($event)">
+    <app-lotes-lista [lotes]="lotes" [lotesCount]="lotesCount" (tableIndexChangeEmitter)="onQueryParamsChange($event)" (reavaliarEmmiter)="reavaliar($event)">
     </app-lotes-lista>
 </nz-layout>

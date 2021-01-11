@@ -18,7 +18,7 @@
                 <td>{{lote.dataFim | date:'dd/MM/yyyy HH:mm'}}</td>
                 <td>{{lote.situacao | situacaoLote}}</td>
                 <td>
-                    <button nz-button nzType="primary" title="Reavaliar">R</button>
+                    <button nz-button nzType="primary" title="Reavaliar" (click)="reavaliar(lote)">R</button>
                     <button nz-button nzDanger title="Excluir">E</button>
                 </td>
             </tr>

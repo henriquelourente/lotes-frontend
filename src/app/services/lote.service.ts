@@ -6,8 +6,9 @@ import { BaseService } from "./base.service";
 import { LocalStorageService } from "./local-storage.service";
 import { catchError, map } from "rxjs/operators";
 import { PaginatedResult } from "../models/result/paginated-result";
-import { Lote } from "../models/lote";
+import { Lote } from "../models/lotes/lote";
 import { LoteFilter } from "../models/filter/lote-filter";
+import { ReavaliarLote } from "../models/lotes/reavaliar-lote";
 
 @Injectable()
 export class LoteService extends BaseService {
@@ -15,6 +16,7 @@ export class LoteService extends BaseService {
     constructor(localStorageService: LocalStorageService, router: Router, private httpClient: HttpClient) {
         super(localStorageService, router);
     }
+
     public obterLotes(loteFilter: LoteFilter, pagina: number)
         : Observable<PaginatedResult<Lote>> {
         const url =
@@ -22,6 +24,14 @@ export class LoteService extends BaseService {
 
         return this.httpClient
             .get<PaginatedResult<Lote>>(url, this.obterHeaderAutenticadoJson())
+            .pipe(
+                map(response => response),
+                catchError(this.serviceError));
+    }
+
+    public reavaliar(reavaliarLote: ReavaliarLote): Observable<any> {
+        return this.httpClient
+            .put<any>(`${this.baseUrl}/lote/reavaliar`, reavaliarLote, this.obterHeaderAutenticadoJson())
             .pipe(
                 map(response => response),
                 catchError(this.serviceError));

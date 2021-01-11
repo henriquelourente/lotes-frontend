@@ -23,6 +23,8 @@ import { LinhaAreaService } from './services/linha-area.service';
 import { ProcessoService } from './services/processo.service';
 import { UnidadeService } from './services/unidade.service';
 import { SituacaoLotePipe } from './pipes/situacao-lote.pipe';
+import { LotesFiltroComponent } from './lotes/lotes-filtro/lotes-filtro.component';
+import { LotesListaComponent } from './lotes/lotes-lista/lotes-lista.component';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -37,8 +39,6 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { LotesFiltroComponent } from './lotes/lotes-filtro/lotes-filtro.component';
-import { LotesListaComponent } from './lotes/lotes-lista/lotes-lista.component';
 
 registerLocaleData(en);
 

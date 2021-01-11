@@ -1,9 +1,9 @@
-import { LoteSituacao } from "../enums/lote-situacao";
-import { Area } from "./area";
-import { Linha } from "./linha";
-import { Processo } from "./processo";
-import { Resultante } from "./resultante";
-import { Unidade } from "./unidade";
+import { LoteSituacao } from "../../enums/lote-situacao";
+import { Area } from "../area";
+import { Linha } from "../linha";
+import { Processo } from "../processo";
+import { Resultante } from "../resultante";
+import { Unidade } from "../unidade";
 
 export class Lote {
     ano: number;

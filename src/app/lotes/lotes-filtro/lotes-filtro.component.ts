@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Area } from 'src/app/models/area';
 import { LoteFilter } from 'src/app/models/filter/lote-filter';
 import { Linha } from 'src/app/models/linha';
-import { Lote } from 'src/app/models/lote';
+import { Lote } from 'src/app/models/lotes/lote';
 import { Processo } from 'src/app/models/processo';
 import { AreaService } from 'src/app/services/area.service';
 import { LinhaAreaService } from 'src/app/services/linha-area.service';
@@ -15,8 +15,6 @@ import { ProcessoService } from 'src/app/services/processo.service';
   styleUrls: ['./lotes-filtro.component.css']
 })
 export class LotesFiltroComponent implements OnInit {
-
-  filtroLotesForm: FormGroup;
 
   private _unidadeId: string;
 
@@ -34,13 +32,15 @@ export class LotesFiltroComponent implements OnInit {
   linhas: Linha[];
   processos: Processo[];
   lotes: Lote[]
-  lotesPageIndex: number = 1;
+
   lotesPageSize: number = 21;
   lotesCount: number = 0;
   lotesLoading: boolean = false;
 
+  filtroLotesForm: FormGroup;
+
   @Output()
-  loteFilterEmitter = new EventEmitter<LoteFilter>();
+  filtrarLotesEmitter = new EventEmitter<LoteFilter>();
 
   constructor(
     private areaService: AreaService,
@@ -62,12 +62,9 @@ export class LotesFiltroComponent implements OnInit {
   private carregarAreas(unidadeId: string): void {
     this.areaService.obterAreasPorUnidade(unidadeId)
       .subscribe(
-        response => {
-          this.areas = response.content;
-        },
-        error => {
-          console.log(error);
-        });
+        response => { this.areas = response.content; },
+        error => { console.log(error); }
+      );
   }
 
   areaChange(areaId: string): void {
@@ -75,12 +72,8 @@ export class LotesFiltroComponent implements OnInit {
 
     this.linhaAreaService.obterLinhasPorArea(areaId)
       .subscribe(
-        response => {
-          this.linhas = response.content;
-        },
-        error => {
-          console.log(error);
-        });
+        response => { this.linhas = response.content; },
+        error => { console.log(error); });
   }
 
   linhaChange(linhaId: string): void {
@@ -88,12 +81,8 @@ export class LotesFiltroComponent implements OnInit {
 
     this.processoService.obterProcessosPorLinhaAreaUnidade(this.unidadeId, this.filtroLotesForm.controls.areaId.value, linhaId)
       .subscribe(
-        response => {
-          this.processos = response.content;
-        },
-        error => {
-          console.log(error);
-        });
+        response => { this.processos = response.content; },
+        error => { console.log(error); });
   }
 
   filtrarLotes() {
@@ -106,6 +95,6 @@ export class LotesFiltroComponent implements OnInit {
       dataFinal: this.filtroLotesForm.controls.dataFinal.value,
     };
 
-    this.loteFilterEmitter.emit(loteFilter);
+    this.filtrarLotesEmitter.emit(loteFilter);
   }
 }
